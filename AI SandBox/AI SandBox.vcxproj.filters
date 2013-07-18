@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{a2ee0d85-36be-452b-b57a-a48d6de7c7df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{f6a1f73b-7b57-466d-ada8-1861a44d2ab5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FSM">
+      <UniqueIdentifier>{e5fc9fc9-b046-453a-96e8-de973f951756}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Steering">
+      <UniqueIdentifier>{662cc42e-9fa1-44dc-9189-899fcab1dc47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\AStar">
+      <UniqueIdentifier>{f2a06715-739d-4582-bccd-f97ae85c4376}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="LoadingScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="FontManager.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSCounter.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="SteeringBehaviors.cpp">
+      <Filter>Steering</Filter>
+    </ClCompile>
+    <ClCompile Include="Agent.cpp" />
+    <ClCompile Include="AStarScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="WorkerFSMScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="AStar\AStar.cpp">
+      <Filter>Scene\AStar</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle15Scene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadingScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="IScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="FontEnum.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="FontManager.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSCounter.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneEnum.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMachine.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="SteeringBehaviors.h">
+      <Filter>Steering</Filter>
+    </ClInclude>
+    <ClInclude Include="Agent.h" />
+    <ClInclude Include="AStarScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="WorkerFSMScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="AStar\AStar.h">
+      <Filter>Scene\AStar</Filter>
+    </ClInclude>
+    <ClInclude Include="AStar\AStarNode.h">
+      <Filter>Scene\AStar</Filter>
+    </ClInclude>
+    <ClInclude Include="Puzzle15Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
