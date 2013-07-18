@@ -50,11 +50,11 @@
     <ClCompile Include="WorkerFSMScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="AStar\AStar.cpp">
-      <Filter>Scene\AStar</Filter>
-    </ClCompile>
     <ClCompile Include="Puzzle15Scene.cpp">
       <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="AStar\AStar_cpp.h">
+      <Filter>Scene\AStar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

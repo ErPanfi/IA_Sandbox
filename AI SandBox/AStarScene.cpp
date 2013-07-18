@@ -3,20 +3,25 @@
 
 AStarScene::AStarScene()
 {
+	/*
 	aStar = new AStar();	
 	std::cout << "Built object." << std::endl;
+	*/
 }
 
 void AStarScene::OnIdle()
 {
+	/*
 	if(!aStar -> runFinished())
 	{
 		visitedNode = aStar -> visitNextNode(&openedNodes);
 	}
+	*/
 }
 
 void AStarScene::OnDraw(sf::RenderWindow&)
 {
+	/*
 	if(!aStar -> runFinished())
 	{
 		if(visitedNode == NULL)
@@ -29,4 +34,5 @@ void AStarScene::OnDraw(sf::RenderWindow&)
 			aStar -> openNode(visitedNode, &openedNodes);
 		}
 		else if(visitedNode -> is
+	*/
 }

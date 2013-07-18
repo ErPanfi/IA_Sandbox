@@ -2,34 +2,55 @@
 #define ASTAR_H
 
 #include <list>
+#include <set>
 #include "AStarNode.h"
 
+template <class T>
 class AStar
 {
+public:
+	typedef AStarNode<T> Node;
+	typedef unsigned char AStar_BitMask;
+	typedef std::list<Node*> NodeList;
+
+	struct NodeCompare
+	{
+		bool less_predicate(Node* &first, Node* &second)
+		{
+			return (*first) < (*second);
+		}
+	};
+
+	typedef std::set<Node*, NodeCompare> NodeSet;
+
+	static const AStar_BitMask BITMASK_EMPTY = 0;
 
 private:
 	//graph structure
+	/*
 	static const int maxRow = 10;
 	static const int maxCol = 10;
 	static const int startNodeIdx = 0;
 	static const int endNodeIdx = maxRow * maxCol - 1;
-
-	std::list<AStarNode*> openList;
 
 	//starring... the graph
 	AStarNode* graphMatrix[maxRow * maxCol];
 
 	//build the graph
 	void buildGraph();
+	*/
 
-	unsigned char				runFlags;
+	NodeSet m_frontier;		//these are the frontier nodes
+	NodeSet m_openedNodes;	//these are visited nodes
+
+	AStar_BitMask m_runFlags;
 
 	inline bool setGoalFound(bool newValue)
 	{
 		if(newValue)
-			runFlags |= BITMASK_FOUNDGOAL;
+			m_runFlags |= BITMASK_FOUNDGOAL;
 		else
-			runFlags &= (~BITMASK_FOUNDGOAL);
+			m_runFlags &= (~BITMASK_FOUNDGOAL);
 	}
 
 public:
@@ -39,14 +60,14 @@ public:
 	static const unsigned char	BITMASK_RUNFINISHED = 1;
 	inline bool runFinished()
 	{
-		return (runFlags & BITMASK_RUNFINISHED) != 0;
+		return (m_runFlags & BITMASK_RUNFINISHED) != 0;
 	}
 	inline bool setRunFinshed(bool newValue)
 	{
 		if(newValue)
-			runFlags |= BITMASK_RUNFINISHED;
+			m_runFlags |= BITMASK_RUNFINISHED;
 		else
-			runFlags &= (~BITMASK_RUNFINISHED);
+			m_runFlags &= (~BITMASK_RUNFINISHED);
 	}
 	
 	static const unsigned char	BITMASK_FOUNDGOAL = (BITMASK_RUNFINISHED << 1);
@@ -54,15 +75,17 @@ public:
 	{
 		return (runFlags & BITMASK_FOUNDGOAL) != 0;
 	}
-	//visit next graph node and return the list of the opened ones reached from that
-	AStarNode* visitNextNode(std::list<AStarNode*> *openedNodeList);
 
-	//add the current node to the open list by visiting from the specified father
-	void openNode(AStarNode* parentNode, AStarNode* currentNode);
-	void openNode(AStarNode* parentNode, std::list<AStarNode*> *openedNodeList);	//overload method to add an entire list to open nodes
+	//visit the given node and add its neighbours to the frontier; the nodes which have been added to the frontier are also added to the given openedNodeList, to notify the caller the frontier variation
+	void openNode(Node* targetNode, NodeList& openedNodeList);
+
+	//decide next node to explore, remove it from the frontier and returns it. If no nodes are still to be explored returns NULL
+	Node* decideNextNodeToExplore();
 
 	//init the graph and return the reference of the start node
-	AStarNode* init();
+	//AStarNode* init();	//don't needed: AStar now doesn't know graph structure
 };
+
+#include "AStar_cpp.h"
 
 #endif //define ASTAR_H 

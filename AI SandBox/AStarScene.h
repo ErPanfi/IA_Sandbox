@@ -14,10 +14,12 @@ public:
 	virtual void	OnIdle();
 	virtual void	OnDraw(sf::RenderWindow&);
 
+	/*
 private:
 	AStar*					aStar;
 	std::list<AStarNode*>	openedNodes;
 	AStarNode*				visitedNode;
+	*/
 };
 
 #endif

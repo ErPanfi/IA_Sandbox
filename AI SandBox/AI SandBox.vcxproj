@@ -155,7 +155,7 @@
     <ClCompile Include="Agent.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="AStarScene.cpp" />
-    <ClCompile Include="AStar\AStar.cpp" />
+    <ClCompile Include="AStar\AStar_cpp.h" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
     <ClCompile Include="GameScene.cpp" />
