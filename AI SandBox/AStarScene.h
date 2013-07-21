@@ -5,7 +5,7 @@
 #include "IScene.h"
 #include "AStar\AStar.h"
 #include "MapNode.h"
-//#include "MapData.h"
+#include "MapData.h"
 class MapData;
 
 
@@ -37,7 +37,7 @@ private:
 	MapData*				m_mapData;
 
 	//AStar object
-	typedef AStar<MapNode>	AStarType;
+	typedef AStar<MapNode, false>	AStarType;
 	AStarType				m_aStar;
 	//current node opened
 	AStarType::Node*		m_currNode;

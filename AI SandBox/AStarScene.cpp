@@ -16,7 +16,7 @@ void AStarScene::unInit()
 {
 	delete m_currNode;
 	delete m_mapData;
-	delete m_backgroundDescriptor;
+	delete[] m_backgroundDescriptor;
 }
 
 AStarScene::AStarScene(const AStarScene& other)
@@ -77,14 +77,15 @@ void AStarScene::OnIdle()
 		}
 		else if(m_currNode -> getContent() == m_mapData -> getGoalNodeRef())
 		{
+			AStarType::Node* backtrack = m_currNode;	//mantain m_currNode reference, in order to draw goal and avoid memory leaks
 			setRunFinished(true);
 			setGoalFound(true);
 			m_frontieredNodes.clear();
-			while(m_currNode)
+			while(backtrack)
 			{
-				m_currNode -> setInGoalPath(true);
-				m_frontieredNodes.push_front(m_currNode);
-				m_currNode = m_currNode -> getParent();
+				backtrack -> setInGoalPath(true);
+				m_frontieredNodes.push_front(backtrack);
+				backtrack = backtrack -> getParent();
 			}
 			std::cout << "Goal found! Here is the path." << std::endl;
 			echoNodes(m_frontieredNodes);
@@ -140,6 +141,7 @@ AStarScene::RectangleDescriptor* AStarScene::buildBackgroundDescriptor(unsigned 
 	untransitableColor.a = 255 * 7 / 10;
 	
 	sf::Color goalColor = sf::Color::Green;
+	goalColor.a = 255 * 7 / 10;
 	
 	//build background black square
 	ret[x].width = 3.0f * SQUARE_HORIZ_PADDING_PX + GRAPH_COLS* (SQUARE_HORIZ_PADDING_PX + SQUARE_WIDTH_PX);
@@ -185,12 +187,12 @@ void AStarScene::drawBackground(RectangleDescriptor *backgroundDesc, sf::RenderW
 void AStarScene::drawNode(AStarType::Node &targetNode, sf::RenderWindow& renderWindow)
 {
 	MapNode* mapNode = &(targetNode.getContent());
-	if(&targetNode == m_currNode)
+	if(targetNode.isInGoalPath())
+		buildAndDrawRectFromNode(*mapNode, sf::Color::Green, renderWindow); //std::cout << "Node in (" << mapNode -> getRow() << ", " << mapNode -> getCol() << ") is in goal path." << std::endl;
+	else if(&targetNode == m_currNode)
 		buildAndDrawRectFromNode(*mapNode, sf::Color::Yellow, renderWindow);
 	else if(mapNode -> getState() == MapNode::CellStateEnum::Blocked)
 		buildAndDrawRectFromNode(*mapNode, sf::Color::Red, renderWindow); //std::cout << "Node in (" << mapNode -> getRow() << ", " << mapNode -> getCol() << ") is blocked." << std::endl;
-	else if(targetNode.isInGoalPath())
-		buildAndDrawRectFromNode(*mapNode, sf::Color::Green, renderWindow); //std::cout << "Node in (" << mapNode -> getRow() << ", " << mapNode -> getCol() << ") is in goal path." << std::endl;
 	else if(targetNode.isFrontiered())
 		buildAndDrawRectFromNode(*mapNode, sf::Color::Cyan, renderWindow); //std::cout << "Node in (" << mapNode -> getRow() << ", " << mapNode -> getCol() << ") is frontiered." << std::endl;
 	else if(targetNode.isOpen())

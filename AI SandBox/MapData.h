@@ -1,7 +1,7 @@
 #ifndef ASTAR_MAPDATA_H
 #define ASTAR_MAPDATA_H
 
-class MapNode;
+#include "MapNode.h"
 
 class MapData
 {
@@ -25,6 +25,8 @@ private:
 
 	//rapid indexing function
 	inline unsigned int idx(unsigned int row, unsigned int col) const { return row * m_maxCols + col; }
+	//Node self-destruction handling
+	friend MapNode::~MapNode();
 
 public:
 	//ctors, dtor and assignment

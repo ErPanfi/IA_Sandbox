@@ -10,6 +10,9 @@ class AStarNode
 {
 public:
 	typedef unsigned char NodeBitmask;
+
+	static int s_countNodes;
+
 private:
 	//node content
 	T* m_content;
@@ -50,11 +53,16 @@ public:
 		col = colValue;
 		nodeFlags = isTransitable ? BITMASK_ISTRANSITABLE : 0;
 		*/
+
 		m_content = &nodeContent;
 		m_GValue = (m_parent = parent) ? m_parent -> m_GValue + 1 : 0;
 		m_HValue = hValue;
 		m_nodeFlags = BITMASK_EMPTY;
+
+		++s_countNodes;
 	}
+
+	~AStarNode() { --s_countNodes; }
 
 	//getter of private attributes
 
@@ -82,11 +90,11 @@ public:
 	//I admit: this is a teacher idea, but I like it =]
 	inline bool operator==(const AStarNode &equals) const
 	{
-		return *m_content == *equals.m_state;
+		return *m_content == *equals.m_content;
 	}
 	inline bool operator!=(const AStarNode &different) const
 	{
-		return !(*this == &different);
+		return !(*this == different);
 	}
 
 	inline bool operator<(const AStarNode &other) const
@@ -161,5 +169,8 @@ public:
 		}
 	}
 };
+
+template <class T>
+int AStarNode<T>::s_countNodes = 0;
 
 #endif	//NODE_H

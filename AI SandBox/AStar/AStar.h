@@ -5,7 +5,7 @@
 #include <set>
 #include "AStarNode.h"
 
-template <class T>
+template <class T, bool NODE_OWN_CONTENT>
 class AStar
 {
 public:

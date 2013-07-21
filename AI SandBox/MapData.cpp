@@ -1,6 +1,8 @@
 #include "MapNode.h"
 #include "MapData.h"
 
+#include <iostream>
+
 MapData::MapData(unsigned int rows, unsigned int cols, bool transitability[], unsigned int startRow, unsigned int startCol, unsigned int goalRow, unsigned int goalCol)
 	: m_maxRows(rows)
 	, m_maxCols(cols)
@@ -21,7 +23,11 @@ MapData::MapData(unsigned int rows, unsigned int cols, bool transitability[], un
 
 void MapData::unInit()
 {
-	delete[] m_map;	//destroy all nodes
+
+	for(unsigned int i = 0; i < m_maxCols * m_maxRows; ++i)
+		delete m_map[i];	//destroy all nodes
+	
+	delete[] m_map;	//destroy all nodes ptrs
 }
 
 void MapData::initFromOther(const MapData& other)
@@ -37,7 +43,10 @@ void MapData::initFromOther(const MapData& other)
 
 MapData::~MapData()
 {
+	std::cout << "Deleting map object with " << MapNode::s_countNodes << " allocated nodes..." << std::endl;
 	unInit();
+	std::cout << "Deleted. Remaining " << MapNode::s_countNodes << " allocated nodes." << std::endl;
+
 }
 
 MapData::MapData(const MapData& other)

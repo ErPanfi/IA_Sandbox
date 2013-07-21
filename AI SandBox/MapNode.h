@@ -2,7 +2,7 @@
 #define ASTAR_MAPNODE_H
 
 #include <list>
-#include "MapData.h"
+class MapData;
 
 class MapNode
 {
@@ -15,6 +15,9 @@ public:
 		COUNT
 	};
 
+	//check for memory leaks
+	static int s_countNodes;
+
 
 private:
 
@@ -24,12 +27,11 @@ private:
 
 	MapData* m_map;
 
-	//ctor accessible only from the map containing the node
-	friend MapData::MapData(unsigned int rows, unsigned int cols, bool transitability[], unsigned int startRow, unsigned int startCol, unsigned int goalRow, unsigned int goalCol);
-	MapNode(MapData &map, unsigned int  row, unsigned int  col, CellStateEnum state);
-
 public:
 
+	MapNode(MapData &map, unsigned int  row, unsigned int  col, CellStateEnum state);
+	MapNode();
+	~MapNode();
 	//getters
 	inline unsigned int getRow() const { return m_row; }
 	inline unsigned int getCol() const { return m_col; }
@@ -47,12 +49,7 @@ public:
 	bool operator==(const MapNode& other) const { return m_row == other.m_row && m_col == other.m_col; }
 	bool operator!=(const MapNode& other) const { return !(*this == other); }
 
-	inline float computeHValue()		//euclidean distance between points
-	{ 
-		int rowDist = m_map -> getGoalRow() - m_row;
-		int colDist = m_map -> getGoalCol() - m_col;
-		return std::sqrtf((float)(rowDist*rowDist + colDist*colDist));
-	}
+	float computeHValue();		//euclidean distance between points
 
 	void buildNeighborsList(std::list<MapNode*>& neighboursList);
 

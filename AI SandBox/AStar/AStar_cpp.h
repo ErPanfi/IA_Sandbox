@@ -218,18 +218,37 @@
 //}
 */
 
-template<class T>
-AStar<T>::~AStar()
+template <class T, bool NODE_OWN_CONTENT>
+AStar<T, NODE_OWN_CONTENT>::~AStar()
 {
+	std::cout << "Deleting AStar object with " << AStar::Node::s_countNodes << " allocated nodes..." << std::endl;
 	for(NodeSet::iterator iter = m_frontier.begin(); iter != m_frontier.end(); ++iter)
+	{
+		if(NODE_OWN_CONTENT)
+		{
+			T* targetPtr = &((*iter) -> getContent());
+			delete targetPtr;
+		}
+
 		delete *iter;
+	}
+
 	for(NodeSet::iterator iter = m_openedNodes.begin(); iter != m_openedNodes.end(); ++iter)
+	{
+		if(NODE_OWN_CONTENT)
+		{
+			T* targetPtr = &((*iter) -> getContent());
+			delete targetPtr;
+		}
 		delete *iter;
+	}
+
+	std::cout << "Deleted. Remaining " << AStar::Node::s_countNodes << " allocated nodes." << std::endl;
 }
 
 
-template <class T>
-AStarNode<T> *AStar<T>::decideNextNodeToExplore()
+template <class T, bool NODE_OWN_CONTENT>
+AStarNode<T> *AStar<T, NODE_OWN_CONTENT>::decideNextNodeToExplore()
 {
 	//NodeSet is an ordered set
 	NodeSet::iterator iter = m_frontier.begin();
@@ -244,8 +263,8 @@ AStarNode<T> *AStar<T>::decideNextNodeToExplore()
 	return ret;
 }
 
-template <class T> 
-void AStar<T>::openNode(Node* targetNode, NodeList& frontieredNodeList)
+template <class T, bool NODE_OWN_CONTENT>
+void AStar<T, NODE_OWN_CONTENT>::openNode(Node* targetNode, NodeList& frontieredNodeList)
 {
 	//add node to opened set (already removed from frontier)
 	targetNode -> setOpen(true);
