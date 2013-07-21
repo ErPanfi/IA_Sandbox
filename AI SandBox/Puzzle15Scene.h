@@ -2,6 +2,7 @@
 #define PUZZLE15SCENE_H
 
 #include "iscene.h"
+
 class Puzzle15Scene :
 	public IScene
 {

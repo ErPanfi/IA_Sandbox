@@ -185,6 +185,8 @@
     <ClInclude Include="LoadingScene.h" />
     <ClInclude Include="MainMenuScene.h" />
     <ClInclude Include="Puzzle15Scene.h" />
+    <ClInclude Include="PuzzleGraph.h" />
+    <ClInclude Include="PuzzleNode.h" />
     <ClInclude Include="SceneEnum.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateMachine.h" />

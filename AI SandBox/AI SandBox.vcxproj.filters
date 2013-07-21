@@ -19,14 +19,14 @@
     <Filter Include="Scene\AStarScene">
       <UniqueIdentifier>{627b33d5-8f9a-408c-9156-5824f33f0baa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene\SandboxScenes">
-      <UniqueIdentifier>{db330868-673b-45b5-9f19-70aa13e54682}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scene\Puzzle15Scene">
       <UniqueIdentifier>{11cece1b-40dc-4117-af7d-898f845d9e22}</UniqueIdentifier>
     </Filter>
     <Filter Include="Scene\WorkerFSMScene">
       <UniqueIdentifier>{b385bbcd-3768-4c50-aa20-24eafe4f8e11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\SystemScenes">
+      <UniqueIdentifier>{db330868-673b-45b5-9f19-70aa13e54682}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -54,13 +54,13 @@
       <Filter>Scene\AStarScene</Filter>
     </ClCompile>
     <ClCompile Include="GameScene.cpp">
-      <Filter>Scene\SandboxScenes</Filter>
+      <Filter>Scene\SystemScenes</Filter>
     </ClCompile>
     <ClCompile Include="LoadingScene.cpp">
-      <Filter>Scene\SandboxScenes</Filter>
+      <Filter>Scene\SystemScenes</Filter>
     </ClCompile>
     <ClCompile Include="MainMenuScene.cpp">
-      <Filter>Scene\SandboxScenes</Filter>
+      <Filter>Scene\SystemScenes</Filter>
     </ClCompile>
     <ClCompile Include="Puzzle15Scene.cpp">
       <Filter>Scene\Puzzle15Scene</Filter>
@@ -114,22 +114,22 @@
       <Filter>Scene\AStarScene</Filter>
     </ClInclude>
     <ClInclude Include="MainMenuScene.h">
-      <Filter>Scene\SandboxScenes</Filter>
+      <Filter>Scene\SystemScenes</Filter>
     </ClInclude>
     <ClInclude Include="GameScene.h">
-      <Filter>Scene\SandboxScenes</Filter>
+      <Filter>Scene\SystemScenes</Filter>
     </ClInclude>
     <ClInclude Include="IScene.h">
-      <Filter>Scene\SandboxScenes</Filter>
+      <Filter>Scene\SystemScenes</Filter>
     </ClInclude>
     <ClInclude Include="LoadingScene.h">
-      <Filter>Scene\SandboxScenes</Filter>
+      <Filter>Scene\SystemScenes</Filter>
     </ClInclude>
     <ClInclude Include="Puzzle15Scene.h">
       <Filter>Scene\Puzzle15Scene</Filter>
     </ClInclude>
     <ClInclude Include="SceneEnum.h">
-      <Filter>Scene\SandboxScenes</Filter>
+      <Filter>Scene\SystemScenes</Filter>
     </ClInclude>
     <ClInclude Include="WorkerFSMScene.h">
       <Filter>Scene\WorkerFSMScene</Filter>
@@ -139,6 +139,12 @@
     </ClInclude>
     <ClInclude Include="MapNode.h">
       <Filter>Scene\AStarScene</Filter>
+    </ClInclude>
+    <ClInclude Include="PuzzleGraph.h">
+      <Filter>Scene\Puzzle15Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="PuzzleNode.h">
+      <Filter>Scene\Puzzle15Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
