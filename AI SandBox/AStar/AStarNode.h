@@ -12,7 +12,7 @@ public:
 	typedef unsigned char NodeBitmask;
 private:
 	//node content
-	T* m_state;
+	T* m_content;
 
 	//flags byte
 	NodeBitmask m_nodeFlags;
@@ -43,23 +43,22 @@ public:
 	static const NodeBitmask BITMASK_EMPTY = 0;
 
 	//constructor
-	AStarNode(T& nodeContent, AStarNode* parent, float nodeHValue)
+	AStarNode(T& nodeContent, AStarNode* parent, float hValue)
 	{
 		/*
 		row = rowValue;
 		col = colValue;
 		nodeFlags = isTransitable ? BITMASK_ISTRANSITABLE : 0;
 		*/
-
+		m_content = &nodeContent;
 		m_GValue = (m_parent = parent) ? m_parent -> m_GValue + 1 : 0;
-		m_HValue = nodeHValue;
-		nodeFlags = BITMASK_EMPTY;
-		m_state = &nodeContent;
+		m_HValue = hValue;
+		m_nodeFlags = BITMASK_EMPTY;
 	}
 
 	//getter of private attributes
 
-	T getState() const { return state; }
+	T& getContent() const { return *m_content; }
 	
 	inline float getHValue() const { return m_HValue; }
 	
@@ -81,69 +80,86 @@ public:
 	*/
 
 	//I admit: this is a teacher idea, but I like it =]
-	bool operator==(const AStarNode &equals) const
+	inline bool operator==(const AStarNode &equals) const
 	{
-		//return getRow() == (equals.getRow()) && getCol() == (equals.getCol());
-		return m_state == equals.m_state;
+		return *m_content == *equals.m_state;
 	}
-	bool operator!=(const AStarNode &different) const
+	inline bool operator!=(const AStarNode &different) const
 	{
-		//return getRow() != (different.getRow()) && getCol() != (different.getCol());
-		return m_state != different.m_state;
-	}
-	
-	bool operator<(const AStarNode &other)
-	{
-		return m_GValue + m_HValue < (other.m_GValue + other.m_HValue) || m_state < other.m_state;
+		return !(*this == &different);
 	}
 
+	inline bool operator<(const AStarNode &other) const
+	{
+		return (
+					!(*m_content == *other.m_content) &&			//conditio sine qua non is that contents have to be different
+					(
+						totalDistance() < (other.totalDistance()) ||								//total distance is lesser
+						(totalDistance() == (other.totalDistance()) && *m_content < *other.m_content)	//or, if distance is equal, content is lesser
+					)
+				);
+	}
+
+	inline float totalDistance() const { return m_GValue + m_HValue; }
+
+	//flags management
 
 	//open flag mask & methods
 	static const NodeBitmask BITMASK_ISOPEN = 1;
-	bool isOpen()
+	inline bool isOpen()
 	{
-		return (m_nodeFlags & BITMASK_ISOPEN) != 0;
+		return (m_nodeFlags & BITMASK_ISOPEN) != BITMASK_EMPTY;
 	}
-	void setOpen(bool newValue)
+	inline void setOpen(bool newValue)
 	{
 		if(newValue)
 		{
-			m_nodeFlags = m_nodeFlags | BITMASK_ISOPEN;
+			m_nodeFlags |= BITMASK_ISOPEN;
 		}
 		else
 		{
-			m_nodeFlags = m_nodeFlags & ~BITMASK_ISOPEN;
+			m_nodeFlags &= ~BITMASK_ISOPEN;
 		}
 	}
 
-	//visited and transitable flag mask & methods
-	/*
-	static const Bitmask BITMASK_ISVISITED = (BITMASK_ISOPEN << 1);
-	bool isVisited()
+	//frontiered flag mask & methods
+
+	static const NodeBitmask BITMASK_ISFRONTIERED = (BITMASK_ISOPEN << 1);
+	inline bool isFrontiered()
 	{
-		return (m_nodeFlags & BITMASK_ISVISITED) != 0;
+		return (m_nodeFlags & BITMASK_ISFRONTIERED) != BITMASK_EMPTY;
 	}
-	void setVisited(bool newValue)
+	inline void setFrontiered(bool newValue)
 	{
 		if(newValue)
 		{
-			m_nodeFlags = m_nodeFlags | BITMASK_ISVISITED;
+			m_nodeFlags |= BITMASK_ISFRONTIERED;
 		}
 		else
 		{
-			m_nodeFlags = m_nodeFlags & ~BITMASK_ISVISITED;
+			m_nodeFlags &= ~BITMASK_ISFRONTIERED;
 		}
 	}
  
-	//transitable flag mask & methods
+	//goalPath flag mask & methods
+	
 
-	static const unsigned char BITMASK_ISTRANSITABLE = (BITMASK_ISVISITED << 1);
-	bool isTransitable()
+	static const NodeBitmask BITMASK_ISINGOALPATH = (BITMASK_ISFRONTIERED << 1);
+	inline bool isInGoalPath()
 	{
-		return (nodeFlags & BITMASK_ISTRANSITABLE) != 0;
+		return (m_nodeFlags & BITMASK_ISINGOALPATH) != BITMASK_EMPTY;
 	}
-	*/
-
+	inline void setInGoalPath(bool newValue)
+	{
+		if(newValue)
+		{
+			m_nodeFlags |= BITMASK_ISINGOALPATH;
+		}
+		else
+		{
+			m_nodeFlags &= BITMASK_ISINGOALPATH;
+		}
+	}
 };
 
 #endif	//NODE_H

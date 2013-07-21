@@ -162,6 +162,8 @@
     <ClCompile Include="LoadingScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuScene.cpp" />
+    <ClCompile Include="MapData.cpp" />
+    <ClCompile Include="MapNode.cpp" />
     <ClCompile Include="Puzzle15Scene.cpp" />
     <ClCompile Include="SteeringBehaviors.cpp" />
     <ClCompile Include="Vector2.cpp" />
@@ -177,6 +179,8 @@
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="FPSCounter.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="MapData.h" />
+    <ClInclude Include="MapNode.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="LoadingScene.h" />
     <ClInclude Include="MainMenuScene.h" />

@@ -13,20 +13,23 @@
     <Filter Include="Steering">
       <UniqueIdentifier>{662cc42e-9fa1-44dc-9189-899fcab1dc47}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene\AStar">
+    <Filter Include="Common\AStar_algorithm">
       <UniqueIdentifier>{f2a06715-739d-4582-bccd-f97ae85c4376}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\AStarScene">
+      <UniqueIdentifier>{627b33d5-8f9a-408c-9156-5824f33f0baa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\SandboxScenes">
+      <UniqueIdentifier>{db330868-673b-45b5-9f19-70aa13e54682}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Puzzle15Scene">
+      <UniqueIdentifier>{11cece1b-40dc-4117-af7d-898f845d9e22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\WorkerFSMScene">
+      <UniqueIdentifier>{b385bbcd-3768-4c50-aa20-24eafe4f8e11}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="LoadingScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="GameScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="MainMenuScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Application.cpp">
       <Filter>Common</Filter>
     </ClCompile>
@@ -44,32 +47,35 @@
       <Filter>Steering</Filter>
     </ClCompile>
     <ClCompile Include="Agent.cpp" />
-    <ClCompile Include="AStarScene.cpp">
-      <Filter>Scene</Filter>
+    <ClCompile Include="AStar\AStar_cpp.h">
+      <Filter>Common\AStar_algorithm</Filter>
     </ClCompile>
-    <ClCompile Include="WorkerFSMScene.cpp">
-      <Filter>Scene</Filter>
+    <ClCompile Include="AStarScene.cpp">
+      <Filter>Scene\AStarScene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>Scene\SandboxScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadingScene.cpp">
+      <Filter>Scene\SandboxScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuScene.cpp">
+      <Filter>Scene\SandboxScenes</Filter>
     </ClCompile>
     <ClCompile Include="Puzzle15Scene.cpp">
-      <Filter>Scene</Filter>
+      <Filter>Scene\Puzzle15Scene</Filter>
     </ClCompile>
-    <ClCompile Include="AStar\AStar_cpp.h">
-      <Filter>Scene\AStar</Filter>
+    <ClCompile Include="WorkerFSMScene.cpp">
+      <Filter>Scene\WorkerFSMScene</Filter>
+    </ClCompile>
+    <ClCompile Include="MapNode.cpp">
+      <Filter>Scene\AStarScene</Filter>
+    </ClCompile>
+    <ClCompile Include="MapData.cpp">
+      <Filter>Scene\AStarScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="LoadingScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="MainMenuScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="IScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Application.h">
       <Filter>Common</Filter>
     </ClInclude>
@@ -88,9 +94,6 @@
     <ClInclude Include="Vector2.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="SceneEnum.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
     <ClInclude Include="StateMachine.h">
       <Filter>FSM</Filter>
     </ClInclude>
@@ -101,20 +104,41 @@
       <Filter>Steering</Filter>
     </ClInclude>
     <ClInclude Include="Agent.h" />
-    <ClInclude Include="AStarScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="WorkerFSMScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
     <ClInclude Include="AStar\AStar.h">
-      <Filter>Scene\AStar</Filter>
+      <Filter>Common\AStar_algorithm</Filter>
     </ClInclude>
     <ClInclude Include="AStar\AStarNode.h">
-      <Filter>Scene\AStar</Filter>
+      <Filter>Common\AStar_algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="AStarScene.h">
+      <Filter>Scene\AStarScene</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuScene.h">
+      <Filter>Scene\SandboxScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>Scene\SandboxScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="IScene.h">
+      <Filter>Scene\SandboxScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadingScene.h">
+      <Filter>Scene\SandboxScenes</Filter>
     </ClInclude>
     <ClInclude Include="Puzzle15Scene.h">
-      <Filter>Scene</Filter>
+      <Filter>Scene\Puzzle15Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneEnum.h">
+      <Filter>Scene\SandboxScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="WorkerFSMScene.h">
+      <Filter>Scene\WorkerFSMScene</Filter>
+    </ClInclude>
+    <ClInclude Include="MapData.h">
+      <Filter>Scene\AStarScene</Filter>
+    </ClInclude>
+    <ClInclude Include="MapNode.h">
+      <Filter>Scene\AStarScene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -218,75 +218,102 @@
 //}
 */
 
+template<class T>
+AStar<T>::~AStar()
+{
+	for(NodeSet::iterator iter = m_frontier.begin(); iter != m_frontier.end(); ++iter)
+		delete *iter;
+	for(NodeSet::iterator iter = m_openedNodes.begin(); iter != m_openedNodes.end(); ++iter)
+		delete *iter;
+}
+
+
 template <class T>
 AStarNode<T> *AStar<T>::decideNextNodeToExplore()
 {
 	//NodeSet is an ordered set
-	NodeSet::iterator iter = m_frontier -> begin();
+	NodeSet::iterator iter = m_frontier.begin();
 	
 	if(iter == m_frontier.end())
 		return NULL;
 
-	Node* ret = *minIter;
-	m_frontier.erase(minIter);
+	Node* ret = *iter;
+	m_frontier.erase(iter);
+	ret -> setFrontiered(false);
 
 	return ret;
 }
 
 template <class T> 
-void AStar<T>::openNode(Node* targetNode, NodeList& openedNodeList)
+void AStar<T>::openNode(Node* targetNode, NodeList& frontieredNodeList)
 {
 	//add node to opened set (already removed from frontier)
 	targetNode -> setOpen(true);
-	m_openedNodes.insert(&targetNode);
+	m_openedNodes.insert(targetNode);
 
-	std::list<T*> nodeNeighbours;
-	targetNode -> getState().buildNeighborsList(&nodeNeighbours);	//the state knows its neighbours
+	typedef std::list<T*> NeighList;
+	NeighList nodeNeighbours;
+	targetNode -> getContent().buildNeighborsList(nodeNeighbours);	//the state knows its neighbours
 
-	std::list<T*>::iterator endIter = nodeNeighbours.end();
-	std::list<T*>::iterator iter = nodeNeighbours.begin();
-	
-	for(; iter != endIter; ++iter)
+	for(NeighList::iterator iter = nodeNeighbours.begin(); iter != nodeNeighbours.end(); ++iter)
 	{
 		//new frontier node ptr
-		AStarNode<T>* frontierNode = new AStarNode<T>((*iter), (*iter) -> computeHValue());
+		Node* frontierNode = new AStarNode<T>(**iter, targetNode, (*iter) -> computeHValue());
 
 		//search in already opened nodes if this is already present
-		NodeSet::iterator findIter = m_openedNodes.find(&frontierNode);
+		/* strange behaviour in set::find, trying a manual scan
+		NodeSet::iterator findIter = m_openedNodes.find(frontierNode);
+		*/
+
+		NodeSet::iterator findIter;
+		for(findIter = m_openedNodes.begin(); findIter != m_openedNodes.end() && (*findIter) -> getContent() != frontierNode -> getContent(); ++findIter);
+
 		if(findIter != m_openedNodes.end())
 		{
-			//if its GValue it's greater than the new frontier node it must be updated
-			if(NodeCompare::less_predicate(frontierNode, *findIter))
+			//if its GValue it's greater than the new frontier node it must be updated, removed from the already visited nodes list and added to frontiered nodes list
+			if(frontierNode -> totalDistance() < (*findIter) -> totalDistance())
 			{
-				*findIter -> setGValue(frontierNode -> getGValue());
-				*findIter -> setParent(frontierNode -> getParent());
+				(*findIter) -> setGValue(frontierNode -> getGValue());
+				(*findIter) -> setParent(frontierNode -> getParent());
+				(*findIter) -> setFrontiered(true);
+				(*findIter) -> setOpen(false);
 
 				//add node to the newly-opened list
-				openedNodeList.push_back(*findIter);
+				frontieredNodeList.push_back(*findIter);
+
+				//remove it from visited list
+				m_openedNodes.erase(findIter);
 			}	//otherwise it must stay into the visited set
 
 			delete frontierNode;	//discard the created node
 		}
 		else	//if not visited it must be searched in frontier, for the same purpose
 		{
-			findIter = m_frontier.find(&frontierNode);
+			/*	strange behaviour in set:find, try a manual scan
+			findIter = m_frontier.find(frontierNode);
+			*/
+
+			for(findIter = m_frontier.begin();findIter != m_frontier.end() && (*findIter) -> getContent() != frontierNode -> getContent(); ++findIter);
+
 			if(findIter != m_frontier.end())
 			{
 				//if found check if must be updated
-				//if its GValue it's greater than the new frontier node it must be updated
-				if(NodeCompare::less_predicate(frontierNode, *findIter))
+				//if its GValue it's greater than the new frontier node it must be updated, but it's already frontiered
+				if(frontierNode -> totalDistance() < (*findIter) -> totalDistance())
 				{
-					*findIter -> setGValue(frontierNode -> getGValue());
-					*findIter -> setParent(frontierNode -> getParent());
+					(*findIter) -> setGValue(frontierNode -> getGValue());
+					(*findIter) -> setParent(frontierNode -> getParent());
 				}	//otherwise it must stay into the frontier set
 
 				delete frontierNode;	//discard the created node
 			}
-			else //never found: it can be inserted directly into frontier set
+			else //never found: the new node can be inserted directly into frontiered set
 			{
-				m_frontier.insert(&frontierNode);
+				frontierNode -> setFrontiered(true);
+				frontierNode -> setOpen(false);
+				m_frontier.insert(frontierNode);
 				//add node to the newly-opened list
-				openedNodeList.push_back(&frontierNode);
+				frontieredNodeList.push_back(frontierNode);
 			}
 		}
 	}
