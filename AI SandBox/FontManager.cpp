@@ -6,6 +6,8 @@ void FontManager::Init()
 	sf::Font font;
 	font.loadFromFile("Graphic/Font/consola.ttf");  
 	m_fonts.insert(std::pair<FontEnum, sf::Font>(FontEnum::Font_Consola, font));
+	font.loadFromFile("Graphic/Font/cyber.ttf");  
+	m_fonts.insert(std::pair<FontEnum, sf::Font>(FontEnum::Font_Cyber, font));
 }
 
 void FontManager::Destroy()

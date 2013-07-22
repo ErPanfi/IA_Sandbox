@@ -5,6 +5,7 @@ enum FontEnum
 {
 	Font_Invalid = -1,
 	Font_Consola = 0,
+	Font_Cyber,
 	
 	Font_Count
 };

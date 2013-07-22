@@ -74,6 +74,9 @@
     <ClCompile Include="MapData.cpp">
       <Filter>Scene\AStarScene</Filter>
     </ClCompile>
+    <ClCompile Include="PuzzleGraph.cpp">
+      <Filter>Scene\Puzzle15Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">

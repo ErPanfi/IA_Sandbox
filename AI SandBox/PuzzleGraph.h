@@ -12,8 +12,13 @@ public:
 
 private:
 	Node m_startingNode;
+
+	void generateStartingNode();
+
 public:
-	Node& getStartingNode() const { return m_startingNode; }
+	Node& getStartingNode() { return m_startingNode; }
+
+	PuzzleGraph();
 };
 
 #endif
