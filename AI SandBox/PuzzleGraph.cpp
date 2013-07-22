@@ -1,8 +1,9 @@
 #include "PuzzleGraph.h"
 #include <stdlib.h>
 #include <time.h>
+#include <iostream>
 
-void PuzzleGraph::generateStartingNode()
+void PuzzleGraph::generateStartingAndFinalNode()
 {
 	//init random number generator
 	srand((unsigned int)(time(NULL)));
@@ -12,7 +13,12 @@ void PuzzleGraph::generateStartingNode()
 	for(int i = 1; i < Node::BOARD_SIZE; ++i)
 		startingBoard[i - 1] = i;
 
-	//Fisher–Yates shuffle
+	//finally add the empty cell. This is the final board
+	startingBoard[Node::BOARD_SIZE - 1] = Node::EMPTY_SPACE;
+
+	m_finalNode = new Node(startingBoard, this);
+
+	//now Fisher–Yates shuffle
 	for(int i = 0; i < Node::BOARD_SIZE - 3; ++i)
 	{
 		unsigned int swapPos = rand() % (Node::BOARD_SIZE - 1);
@@ -40,13 +46,15 @@ void PuzzleGraph::generateStartingNode()
 		startingBoard[Node::BOARD_SIZE - 3] = tmp;
 	}
 
-	//finally add the empty cell
-	startingBoard[Node::BOARD_SIZE - 1] = Node::EMPTY_SPACE;
-
-	m_startingNode = Node(startingBoard, this);
+	m_startingNode = new Node(startingBoard, this);
 }
 
 PuzzleGraph::PuzzleGraph()
 {
-	generateStartingNode();
+	generateStartingAndFinalNode();
+}
+
+PuzzleGraph::~PuzzleGraph()
+{
+	std::cout << "There are still " << Node::s_nodeCount << " puzzle nodes in memory.";
 }

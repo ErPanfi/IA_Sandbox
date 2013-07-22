@@ -222,12 +222,18 @@ template <class T, bool NODE_OWN_CONTENT>
 AStar<T, NODE_OWN_CONTENT>::~AStar()
 {
 	std::cout << "Deleting AStar object with " << AStar::Node::s_countNodes << " allocated nodes..." << std::endl;
+	std::set<T*> deletedContents;
+
 	for(NodeSet::iterator iter = m_frontier.begin(); iter != m_frontier.end(); ++iter)
 	{
 		if(NODE_OWN_CONTENT)
 		{
 			T* targetPtr = &((*iter) -> getContent());
-			delete targetPtr;
+			if(deletedContents.find(targetPtr) == deletedContents.end())
+			{
+				deletedContents.insert(targetPtr);
+				delete targetPtr;
+			}
 		}
 
 		delete *iter;
@@ -238,8 +244,13 @@ AStar<T, NODE_OWN_CONTENT>::~AStar()
 		if(NODE_OWN_CONTENT)
 		{
 			T* targetPtr = &((*iter) -> getContent());
-			delete targetPtr;
+			if(deletedContents.find(targetPtr) == deletedContents.end())
+			{
+				deletedContents.insert(targetPtr);
+				delete targetPtr;
+			}
 		}
+
 		delete *iter;
 	}
 

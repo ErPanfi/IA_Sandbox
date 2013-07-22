@@ -1,3 +1,7 @@
+//qui mancavano le guardie! Non si fa! ;-)
+#ifndef SANDBOX_FONTMANAGER_H
+#define SANDBOX_FONTMANAGER_H
+
 #include <SFML/Graphics/Font.hpp>
 #include <map>
 #include "FontEnum.h"
@@ -28,3 +32,4 @@ protected:
 	FontManager& operator=(const FontManager&);
 };
 
+#endif

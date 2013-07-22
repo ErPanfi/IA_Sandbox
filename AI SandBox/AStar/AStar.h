@@ -53,9 +53,6 @@ private:
 			m_runFlags &= (~BITMASK_FOUNDGOAL);
 	}
 
-
-	void unInit(); //this must clean the nodes into the sets before object dies
-
 public:
 
 	~AStar();
