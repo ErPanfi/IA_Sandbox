@@ -226,6 +226,7 @@ AStar<T, NODE_OWN_CONTENT>::~AStar()
 
 	for(NodeSet::iterator iter = m_frontier.begin(); iter != m_frontier.end(); ++iter)
 	{
+		/*
 		if(NODE_OWN_CONTENT)
 		{
 			T* targetPtr = &((*iter) -> getContent());
@@ -235,12 +236,14 @@ AStar<T, NODE_OWN_CONTENT>::~AStar()
 				delete targetPtr;
 			}
 		}
+		*/
 
 		delete *iter;
 	}
 
 	for(NodeSet::iterator iter = m_openedNodes.begin(); iter != m_openedNodes.end(); ++iter)
 	{
+		/*
 		if(NODE_OWN_CONTENT)
 		{
 			T* targetPtr = &((*iter) -> getContent());
@@ -250,6 +253,7 @@ AStar<T, NODE_OWN_CONTENT>::~AStar()
 				delete targetPtr;
 			}
 		}
+		*/
 
 		delete *iter;
 	}

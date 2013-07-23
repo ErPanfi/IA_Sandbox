@@ -14,10 +14,10 @@ public:
 	static const SceneBitmask EMPTY_BITMASK = 0;
 
 	//astar definitions
-	typedef AStar<PuzzleGraph::Node, true> AStarSolver;
+	typedef AStar<PuzzleGraph::Node, false> AStarSolver;
 
 	//rendering frame timelapse
-	static const unsigned long RENDERING_PAUSE_MILLIS = 2000;
+	static const unsigned long RENDERING_PAUSE_MILLIS = 1000;
 private:
 
 	PuzzleGraph m_puzzleGraph;

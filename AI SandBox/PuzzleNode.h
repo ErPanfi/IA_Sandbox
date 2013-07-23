@@ -110,6 +110,7 @@ private:
 
 		//if passed switch of death then neighbour exists!
 		PuzzleNode *ret = new PuzzleNode(*this);	//copy this
+		++s_nodeCount;	//and count the copy
 		//swap empty cell with new idx
 		unsigned int newIdx = PuzzleNode::idx(newX, newY);
 		ret -> m_board[ret -> m_emptySpaceCoords.idx()] = ret -> m_board[newIdx];
@@ -274,7 +275,10 @@ public:
 		{
 			PuzzleNode* newNode = buildNeighbour((MovementDirection) i);
 			if(newNode)
+			{
+				m_puzzleGraph -> registerDynamicNode(newNode);
 				neighboursList.push_back(newNode);
+			}
 		}
 	}
 

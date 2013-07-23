@@ -17,6 +17,7 @@ void PuzzleGraph::generateStartingAndFinalNode()
 	startingBoard[Node::BOARD_SIZE - 1] = Node::EMPTY_SPACE;
 
 	m_finalNode = new Node(startingBoard, this);
+	m_allocatedNodes.insert(m_finalNode);
 
 	//now Fisher–Yates shuffle
 	for(int i = 0; i < Node::BOARD_SIZE - 3; ++i)
@@ -47,6 +48,7 @@ void PuzzleGraph::generateStartingAndFinalNode()
 	}
 
 	m_startingNode = new Node(startingBoard, this);
+	m_allocatedNodes.insert(m_startingNode);
 }
 
 PuzzleGraph::PuzzleGraph()
@@ -56,5 +58,16 @@ PuzzleGraph::PuzzleGraph()
 
 PuzzleGraph::~PuzzleGraph()
 {
-	std::cout << "There are still " << Node::s_nodeCount << " puzzle nodes in memory.";
+	std::cout << "Starting deleting nodes. There are " << Node::s_nodeCount << " in memory and " << m_allocatedNodes.size() << " registered in set." << std::endl;
+	for(std::set<Node*>::iterator iter = m_allocatedNodes.begin(); iter != m_allocatedNodes.end(); ++iter)
+	{
+		Node* currNode = *iter;
+		delete currNode;
+	}
+	std::cout << "There are still " << Node::s_nodeCount << " puzzle nodes in memory." << std::endl;
+}
+
+void PuzzleGraph::registerDynamicNode(Node* nodePtr)
+{
+	m_allocatedNodes.insert(nodePtr);
 }
